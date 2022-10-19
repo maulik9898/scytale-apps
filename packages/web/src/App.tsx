@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import styles from './App.module.css';
+import { Button } from '@scytale/shared';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <Button />
         <a
           class={styles.link}
           href="https://github.com/solidjs/solid"

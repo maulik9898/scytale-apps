@@ -4,8 +4,11 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@nxext/vite": "^14.1.0"
+  },
   "devDependencies": {
+    "@nxext/solid": "^14.0.2",
     "nx": "15.0.0",
     "prettier": "^2.6.2"
   },

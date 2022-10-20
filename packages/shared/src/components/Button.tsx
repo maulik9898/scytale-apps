@@ -3,7 +3,7 @@ import { Component } from 'solid-js';
 const Button: Component = () => {
   return (
     <div>
-      <h2>Button</h2>
+      <button class="btn btn-accent text-xl">Button</button>
     </div>
   );
 };

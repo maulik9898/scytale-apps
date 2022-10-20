@@ -9,11 +9,11 @@ const App: Component = () => {
       <Versions />
       <Button />
       <img class="hero-logo" src={logo} alt="logo" />
-      <h2 class="hero-text">
+      <h2 class="hero-text text-xl text-blue-700">
         You{"'"}ve successfully created an Electron project with Solid and TypeScript
       </h2>
       <p class="hero-tagline">
-        Please try pressing <code>F12</code> to open the devTool
+        Please trressing <code>F12</code> to open the devTool
       </p>
 
       <div class="links">

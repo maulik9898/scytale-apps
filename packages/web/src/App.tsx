@@ -12,7 +12,7 @@ function App() {
         </p>
         <Button />
         <a
-          class={styles.link}
+          class="text-7xl text-red-500"
           href="https://github.com/solidjs/solid"
           target="_blank"
           rel="noopener noreferrer"

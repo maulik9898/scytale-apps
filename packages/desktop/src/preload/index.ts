@@ -1,8 +1,17 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+import { store, storeType } from '../main/store'
 
 // Custom APIs for renderer
-const api = {}
+const api = {
+  store: {
+    get: (key: string) => store.get(key),
+    set: (key: string, value: unknown) => store.set(key, value),
+    clear: () => store.clear(),
+    delete: (key: keyof storeType) => store.delete(key)
+  }
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise

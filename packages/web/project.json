@@ -21,6 +21,7 @@
       "options": {
         "outputPath": "dist/packages/web",
         "frameworkConfigFile": "@nxext/solid/plugins/vite"
+  
       }
     },
     "lint": {

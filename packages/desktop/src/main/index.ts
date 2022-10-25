@@ -1,6 +1,9 @@
 import { app, shell, BrowserWindow } from 'electron'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import './store'
+
+console.log(app.getPath('userData'))
 
 function createWindow(): void {
   // Create the browser window.

@@ -1,4 +1,3 @@
-import { ipcMain } from 'electron'
 import Store from 'electron-store'
 
 export type storeType = {

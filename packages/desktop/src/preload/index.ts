@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron'
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
@@ -10,6 +11,12 @@ const api = {
     set: (key: string, value: unknown) => store.set(key, value),
     clear: () => store.clear(),
     delete: (key: keyof storeType) => store.delete(key)
+  },
+  clipboard: {
+    start: () => ipcRenderer.send('clipboard:start', 'start'),
+    stop: () => ipcRenderer.send('clipboard:stop', 'stop'),
+    getClipboardData: (callback) => ipcRenderer.on('clipboard:data', callback),
+    saveToClipboard: (data: string) => ipcRenderer.send('clipboard:save', data)
   }
 }
 

@@ -6,6 +6,14 @@ declare global {
     electron: ElectronAPI
     api: {
       store: Store<storeType>
+      clipboard: {
+        start: () => void
+        stop: () => void
+        getClipboardData: (
+          callback: (event: Electron.IpcRendererEvent, data: string) => void
+        ) => void
+        saveToClipboard: (data: string) => void
+      }
     }
   }
 }

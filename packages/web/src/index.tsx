@@ -4,15 +4,17 @@ import './index.css';
 import { App, Button } from '@scytale/shared';
 import { Router } from '@solidjs/router';
 import { QueryClientProvider } from '@tanstack/solid-query';
-import { queryClient } from '@scytale/shared';
+import { queryClient, MqttProvider } from '@scytale/shared';
 import GlobalStoreProvider from './store/GlobalStoreProvider';
 render(
   () => (
     <QueryClientProvider client={queryClient} contextSharing>
       <GlobalStoreProvider>
-        <Router>
-          <App />
-        </Router>
+        <MqttProvider>
+          <Router>
+            <App />
+          </Router>
+        </MqttProvider>
       </GlobalStoreProvider>
     </QueryClientProvider>
   ),

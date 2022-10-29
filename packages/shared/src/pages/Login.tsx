@@ -66,6 +66,8 @@ const Login: Component = () => {
             s.accessToken = data.data.accessToken;
             s.refreshToken = data.data.refreshToken;
             s.isLoggedIn = true;
+            s.id = data.data.id;
+            s.role = data.data.role;
           })
         );
         navigate('/');

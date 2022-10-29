@@ -1,14 +1,15 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, clipboard, ipcMain } from 'electron'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import './store'
+import clipboardListener from 'clipboard-event'
 
 console.log(app.getPath('userData'))
-
-function createWindow(): void {
+let window: BrowserWindow
+function createWindow(): BrowserWindow {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
+    width: 500,
     height: 670,
     show: false,
     autoHideMenuBar: true,
@@ -39,6 +40,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'))
   }
+
+  return mainWindow
 }
 
 // This method will be called when Electron has finished
@@ -55,12 +58,12 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  createWindow()
+  window = createWindow()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) window = createWindow()
   })
 })
 
@@ -68,6 +71,7 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
+  clipboardListener.stopListening()
   if (process.platform !== 'darwin') {
     app.quit()
   }
@@ -75,3 +79,29 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+let recentCopyToClipboard = false
+clipboardListener.on('change', () => {
+  if (recentCopyToClipboard) {
+    recentCopyToClipboard = false
+    return
+  }
+  const data = clipboard.readText()
+  console.log('Clipboard changed')
+  window.webContents.send('clipboard:data', data)
+})
+
+ipcMain.on('clipboard:start', (_, m) => {
+  console.log(`Clipboard ${m}`)
+  clipboardListener.startListening()
+})
+
+ipcMain.on('clipboard:stop', (_, m) => {
+  console.log(`Clipboard ${m}`)
+  clipboardListener.stopListening()
+})
+
+ipcMain.on('clipboard:save', (_, data) => {
+  console.log(`Clipboard save `)
+  recentCopyToClipboard = true
+  clipboard.writeText(data)
+})

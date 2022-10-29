@@ -5,6 +5,7 @@ import {
   GlobalStoreContext,
   GlobalStoreContextType,
   Client,
+  Role,
 } from '@scytale/shared';
 
 const GlobalStoreProvider: ParentComponent = (props) => {
@@ -24,6 +25,8 @@ const GlobalStoreProvider: ParentComponent = (props) => {
     get client() {
       return Client.Web;
     },
+    id: parseInt(localStorage.getItem('id') || '-1'),
+    role: (localStorage.getItem('role') as Role) || Role.USER,
   });
   const store: GlobalStoreContextType = [
     state,
@@ -53,6 +56,12 @@ const GlobalStoreProvider: ParentComponent = (props) => {
   });
   createEffect(() => {
     localStorage.setItem('email', state.email);
+  });
+  createEffect(() => {
+    localStorage.setItem('id', state.id.toString());
+  });
+  createEffect(() => {
+    localStorage.setItem('role', state.role);
   });
 
   return (

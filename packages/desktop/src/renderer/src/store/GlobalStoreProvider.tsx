@@ -23,7 +23,9 @@ const GlobalStoreProvider: ParentComponent = (props) => {
     },
     get client() {
       return Client.Desktop
-    }
+    },
+    id: window.api.store.get('id') || -1,
+    role: window.api.store.get('role') || ''
   })
   const store: GlobalStoreContextType = [
     state,
@@ -53,6 +55,12 @@ const GlobalStoreProvider: ParentComponent = (props) => {
   })
   createEffect(() => {
     window.api.store.set('email', state.email)
+  })
+  createEffect(() => {
+    window.api.store.set('id', state.id)
+  })
+  createEffect(() => {
+    window.api.store.set('role', state.role)
   })
 
   return <GlobalStoreContext.Provider value={store}>{props.children}</GlobalStoreContext.Provider>

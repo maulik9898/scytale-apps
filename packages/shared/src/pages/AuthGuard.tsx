@@ -7,9 +7,8 @@ import { useGlobalStore } from '../stores/StoreContext';
 /* Authentication guard */
 const AuthGuard: Component = () => {
   const [state, setState] = useGlobalStore();
-  console.log('auth guard', state);
 
-   createQuery<{ status: string }>(
+  createQuery<{ status: string }>(
     () => ['tokenCheck', state.serverUrl],
     async () => {
       const { data } = await axios.get(state.serverUrl + '/authenticate', {

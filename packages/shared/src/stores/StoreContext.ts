@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, useContext } from 'solid-js';
-import { Client, GlobalStoreContextType } from '../Types/Types';
+import { Client, GlobalStoreContextType, Role } from '../Types/Types';
 
 export const GlobalStoreContext = createContext<GlobalStoreContextType>([
   {
@@ -12,6 +12,8 @@ export const GlobalStoreContext = createContext<GlobalStoreContextType>([
     isValidate: false,
     serverUrl: '',
     client: Client.Web,
+    id: -1,
+    role: Role.USER,
   },
   () => {},
   {

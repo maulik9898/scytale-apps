@@ -13,7 +13,8 @@ export default defineConfig({
     resolve: {
       alias: {
         '@renderer': resolve('src/renderer/src'),
-        '@scytale/shared': resolve('../shared/src/index.ts')
+        '@scytale/shared': resolve('../shared/src/index.ts'),
+        mqtt: 'mqtt/dist/mqtt.js'
       }
     },
     plugins: [solid()]

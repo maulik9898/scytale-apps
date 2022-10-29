@@ -10,8 +10,7 @@ const ThemeChange: Component = () => {
   return (
     <div class="dropdown dropdown-end">
       <label tabIndex={0} class="btn">
-        <HiOutlineColorSwatch size={24} class="mr-2" />
-        Themes
+        <HiOutlineColorSwatch size={24} class="" />
       </label>
       <div
         class={`dropdown-content mt-2 bg-base-200 text-base-content rounded-t-box rounded-b-box max-h-96 h-[70vh] w-52 overflow-y-auto shadow-2xl`}

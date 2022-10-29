@@ -1,3 +1,5 @@
+import { MqttClient } from 'mqtt';
+import { Accessor } from 'solid-js';
 import { SetStoreFunction } from 'solid-js/store';
 
 export type GlobalStoreType = {
@@ -8,12 +10,14 @@ export type GlobalStoreType = {
   serverUrl: string;
   isLoggedIn: boolean;
   readonly isValidate: boolean;
-  readonly client: Client
+  readonly client: Client;
+  id: number;
+  role: Role;
 };
 
 export enum Client {
-    Desktop = 'desktop',
-    Web = 'web',
+  Desktop = 'desktop',
+  Web = 'web',
 }
 
 export type LoginResponse = {
@@ -49,3 +53,38 @@ export type GlobalStoreContextType = [
     updateFormField: (fieldName: string) => (event: Event) => void;
   }
 ];
+
+export interface ConnectedClient {
+  id: string;
+  username: string;
+  userId: number;
+  pubKey?: any;
+}
+
+export interface MqttMessage {
+  topic: string;
+  payload: string;
+}
+
+export interface MqttStoreType {
+  client: MqttClient | null;
+  clipMessage: string | null;
+  connectedClients: ConnectedClient[];
+  mqttStatus: 'connected' | 'disconnected' | 'connecting' | 'reconnecting';
+  clientId: string;
+}
+
+export type MqttContextType = [
+  mqttClient: MqttStoreType,
+  action: {
+    connect: () => void;
+    disconnect: () => void;
+    publish: (message: string) => void;
+    copyToClipboard: (message: string) => void;
+  }
+];
+
+export interface IMessage {
+  clientId: string;
+  message: string;
+}

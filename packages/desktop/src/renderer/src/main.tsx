@@ -5,14 +5,17 @@ import { Router, hashIntegration } from '@solidjs/router'
 import { QueryClientProvider } from '@tanstack/solid-query'
 import { queryClient } from '@scytale/shared'
 import GlobalStoreProvider from './store/GlobalStoreProvider'
+import MqttProvider from './store/MqttProvider'
 
 render(
   () => (
     <QueryClientProvider client={queryClient} contextSharing>
       <GlobalStoreProvider>
-        <Router source={hashIntegration()}>
-          <App />
-        </Router>
+        <MqttProvider>
+          <Router source={hashIntegration()}>
+            <App />
+          </Router>
+        </MqttProvider>
       </GlobalStoreProvider>
     </QueryClientProvider>
   ),
